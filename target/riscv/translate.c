@@ -1035,6 +1035,7 @@ static bool gen_shift_per_ol(DisasContext *ctx, arg_r *a, DisasExtend ext,
 static bool gen_unary(DisasContext *ctx, arg_r2 *a, DisasExtend ext,
                       void (*func)(TCGv, TCGv))
 {
+    qemu_log("gen_unary_brev\n");
     TCGv dest = dest_gpr(ctx, a->rd);
     TCGv src1 = get_gpr(ctx, a->rs1, ext);
 
@@ -1104,6 +1105,7 @@ static inline int insn_len(uint16_t first_word)
 
 static void decode_opc(CPURISCVState *env, DisasContext *ctx, uint16_t opcode)
 {
+    qemu_log("decode_opc--------------\n");
     /*
      * A table with predicate (i.e., guard) functions and decoder functions
      * that are tested in-order until a decoder matches onto the opcode.
@@ -1130,6 +1132,7 @@ static void decode_opc(CPURISCVState *env, DisasContext *ctx, uint16_t opcode)
         opcode32 = deposit32(opcode32, 16, 16,
                              translator_lduw(env, &ctx->base,
                                              ctx->base.pc_next + 2));
+        qemu_log("opcode32 = %x\n", opcode32);
         ctx->opcode = opcode32;
         ctx->pc_succ_insn = ctx->base.pc_next + 4;
 
@@ -1203,6 +1206,7 @@ static void riscv_tr_insn_start(DisasContextBase *dcbase, CPUState *cpu)
 
 static void riscv_tr_translate_insn(DisasContextBase *dcbase, CPUState *cpu)
 {
+    qemu_log("riscv_tr_translate_insn----------------\n");
     DisasContext *ctx = container_of(dcbase, DisasContext, base);
     CPURISCVState *env = cpu->env_ptr;
     uint16_t opcode16 = translator_lduw(env, &ctx->base, ctx->base.pc_next);

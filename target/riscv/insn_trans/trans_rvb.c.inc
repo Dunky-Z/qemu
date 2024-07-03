@@ -569,3 +569,10 @@ static bool trans_xperm8(DisasContext *ctx, arg_xperm8 *a)
     REQUIRE_ZBKX(ctx);
     return gen_arith(ctx, a, EXT_NONE, gen_helper_xperm8, NULL);
 }
+
+
+static bool trans_brev(DisasContext *ctx, arg_brev *a)
+{
+    qemu_log("trans_brev\n");
+    return gen_unary(ctx, a, EXT_NONE, gen_helper_brev);
+}

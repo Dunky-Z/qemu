@@ -17,6 +17,7 @@
 # this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Fields:
+#   start_bit:length
 %rs3       27:5
 %rs2       20:5
 %rs1       15:5
@@ -908,3 +909,5 @@ sm4ks       .. 11010 ..... ..... 000 ..... 0110011 @k_aes
 # *** RV32 Zicond Standard Extension ***
 czero_eqz   0000111  ..... ..... 101 ..... 0110011 @r
 czero_nez   0000111  ..... ..... 111 ..... 0110011 @r
+#            func7   rs2   rs1 func3 rd   opcode
+brev        1111111  00000 ..... 101 ..... 0001011 @r2

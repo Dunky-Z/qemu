@@ -18,6 +18,8 @@
 #include "exec/plugin-gen.h"
 #include "exec/replay-core.h"
 
+#include "qemu/log.h"
+
 bool translator_use_goto_tb(DisasContextBase *db, target_ulong dest)
 {
     /* Suppress goto_tb if requested. */
@@ -33,6 +35,8 @@ void translator_loop(CPUState *cpu, TranslationBlock *tb, int *max_insns,
                      target_ulong pc, void *host_pc,
                      const TranslatorOps *ops, DisasContextBase *db)
 {
+
+    qemu_log("translator_loop-----------------------\n");
     uint32_t cflags = tb_cflags(tb);
     bool plugin_enabled;
 

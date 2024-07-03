@@ -56,6 +56,8 @@
 #include "user-mmap.h"
 #include "accel/tcg/perf.h"
 
+#include "qemu/log.h"
+
 #ifdef CONFIG_SEMIHOSTING
 #include "semihosting/semihost.h"
 #endif
@@ -958,8 +960,10 @@ int main(int argc, char **argv, char **envp)
 #ifdef CONFIG_SEMIHOSTING
     qemu_semihosting_guestfd_init();
 #endif
+    qemu_log("开始运行-----------------\n");
 
     cpu_loop(env);
+    qemu_log("开始运行-----------------\n");
     /* never exits */
     return 0;
 }

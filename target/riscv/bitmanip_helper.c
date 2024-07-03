@@ -24,6 +24,7 @@
 #include "exec/helper-proto.h"
 #include "tcg/tcg.h"
 
+#include "qemu/log.h"
 target_ulong HELPER(clmul)(target_ulong rs1, target_ulong rs2)
 {
     target_ulong result = 0;
@@ -128,4 +129,17 @@ target_ulong HELPER(xperm4)(target_ulong rs1, target_ulong rs2)
 target_ulong HELPER(xperm8)(target_ulong rs1, target_ulong rs2)
 {
     return do_xperm(rs1, rs2, 3);
+}
+
+target_ulong helper_brev(target_ulong rs1) {
+  qemu_log("exec_brev_HELPER\n");
+  qemu_log("rs1 = 0x%lx\n", rs1);
+
+  target_ulong x = rs1;
+  x = ((x >> 1) & 0x55555555) | (x & 0x55555555) << 1;
+  x = ((x >> 2) & 0x33333333) | (x & 0x33333333) << 2;
+  x = ((x >> 4) & 0x0F0F0F0F) | (x & 0x0F0F0F0F) << 4;
+  x = ((x >> 8) & 0x00FF00FF) | (x & 0x00FF00FF) << 8;
+  x = (x >> 16) | (x << 16);
+  return x;
 }

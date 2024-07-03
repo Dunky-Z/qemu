@@ -560,6 +560,7 @@ void cpu_exec_step_atomic(CPUState *cpu)
         tb = tb_lookup(cpu, pc, cs_base, flags, cflags);
         if (tb == NULL) {
             mmap_lock();
+            qemu_log("cpu_exec_step_atomic-----------------\n");
             tb = tb_gen_code(cpu, pc, cs_base, flags, cflags);
             mmap_unlock();
         }
@@ -975,6 +976,7 @@ cpu_exec_loop(CPUState *cpu, SyncClocks *sc)
                 uint32_t h;
 
                 mmap_lock();
+                qemu_log("cpu_exec_loop-----------------\n");
                 tb = tb_gen_code(cpu, pc, cs_base, flags, cflags);
                 mmap_unlock();
 
